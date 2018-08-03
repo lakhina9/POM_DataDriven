@@ -1,0 +1,62 @@
+package com.crm.qa.util;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+
+import com.crm.qa.base.TestBase;
+
+public class TestUtil extends TestBase {
+
+	public static long PAGE_LOAD_TIMEOUT = 20;
+	public static long IMPLICIT_WAIT = 30;
+	public static String TESTDATA_SHEET_PATH = "C:/Selenium_02_12/FreeCRMPOM/src/main/java/com/crm/qa/testdata/CRMTestData.xls";
+
+	static HSSFWorkbook book;
+	static Sheet sheet;
+	static FileInputStream fis;
+
+	public void switchToFrame() {
+		driver.switchTo().frame("mainpanel");
+	}
+
+	public static Object[][] getTestData(String sheetName) {
+		File file = new File(TESTDATA_SHEET_PATH);
+
+		try {
+			fis = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			book = new HSSFWorkbook(fis);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Sheet sheet = book.getSheet(sheetName);
+		// int numRow=sheet.getPhysicalNumberOfRows();
+		// int numCol=sheet.getRow(0).getLastCellNum();
+
+		Object data[][] = new Object[sheet.getPhysicalNumberOfRows()][sheet
+				.getRow(0).getLastCellNum()];
+
+		for (int i = 1; i < sheet.getPhysicalNumberOfRows()-1; i++) {
+			for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
+				data[i][j] = sheet.getRow(i).getCell(j).toString();
+				System.out.println(data[i][j]);
+			}
+		}
+
+		return data;
+
+	}
+
+}

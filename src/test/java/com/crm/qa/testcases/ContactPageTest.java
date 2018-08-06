@@ -61,14 +61,12 @@ public class ContactPageTest extends TestBase {
 	}
 	
 	@Test(priority = 4,dataProvider="getCRMTestData")
-	
-	public void addNewContactDetailTest(String title,String fName,String lName,String company) {
+		public void addNewContactDetailTest(String title,String fName,String lName,String company) {
 		homepage.clickOnNewContact();
 		//contactsPage.createNewContact("Mr.", "Tom", "Peter", "Google");
 		contactpage.addNewContactDetail(title,fName,lName,company);
 	}
 	
-
 
 	@AfterMethod()
 	public void tearDown() {

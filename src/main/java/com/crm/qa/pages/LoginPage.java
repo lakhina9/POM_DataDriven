@@ -1,6 +1,9 @@
 package com.crm.qa.pages;
 
+import java.lang.invoke.MethodHandles.Lookup;
+
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -10,6 +13,7 @@ public class LoginPage extends TestBase {
 
 	// Page Factory - OR:
 	@FindBy(name = "username")
+	@CacheLookup
 	WebElement username;
 
 	@FindBy(name = "password")
